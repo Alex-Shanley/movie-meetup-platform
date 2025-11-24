@@ -68,6 +68,10 @@ export const movieAPI = {
   searchTMDB: (query) => api.get('/movies/tmdb/search/', { params: { q: query } }),
   getPopular: (page = 1) => api.get('/movies/tmdb/popular/', { params: { page } }),
   getTMDBDetails: (tmdbId) => api.get(`/movies/tmdb/${tmdbId}/`),
+  getTMDBRecommendations: (tmdbId, page = 1) =>
+    api.get(`/movies/tmdb/${tmdbId}/recommendations/`, { params: { page } }),
+  getTMDBReviews: (tmdbId, page = 1) =>
+    api.get(`/movies/tmdb/${tmdbId}/reviews/`, { params: { page } }),
   create: (data) => api.post('/movies/', data),
   update: (id, data) => api.patch(`/movies/${id}/`, data),
   delete: (id) => api.delete(`/movies/${id}/`),

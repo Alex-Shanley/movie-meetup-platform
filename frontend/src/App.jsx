@@ -1,10 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './utils/AuthContext';
 import Navbar from './components/Navbar';
-import Home from './pages/Home';
+import Home from './pages/HomeFigma';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ResetPassword from './pages/ResetPassword';
 import Dashboard from './pages/Dashboard';
 import Movies from './pages/Movies';
 import MovieDetail from './pages/MovieDetail';
@@ -21,14 +22,21 @@ const PrivateRoute = ({ children }) => {
 };
 
 function AppRoutes() {
+  const location = useLocation();
+  const hideNavbar =
+    location.pathname === '/login' ||
+    location.pathname === '/register' ||
+    location.pathname === '/forgot-password';
+
   return (
     <div className="App">
-      <Navbar />
-      <div className="container">
+      {!hideNavbar && <Navbar />}
+      <div className={hideNavbar ? "" : "container"}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ResetPassword />} />
           <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           <Route path="/movies" element={<Movies />} />
           <Route path="/movies/:id" element={<MovieDetail />} />

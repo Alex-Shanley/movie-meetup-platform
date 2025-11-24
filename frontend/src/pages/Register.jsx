@@ -16,13 +16,17 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     if (formData.password !== formData.password2) {
       setError('Passwords do not match');
       return;
@@ -32,45 +36,143 @@ const Register = () => {
       await register(formData);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.username?.[0] || err.response?.data?.email?.[0] || 'Registration failed');
+      setError(
+        err.response?.data?.username?.[0] ||
+          err.response?.data?.email?.[0] ||
+          'Registration failed'
+      );
     }
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-form">
-        <h2>Register</h2>
-        {error && <div className="error-message">{error}</div>}
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Username</label>
-            <input type="text" name="username" value={formData.username} onChange={handleChange} required />
+    <div className="login-page">
+      <div className="login-container">
+        {/* Left side - movie collage (same as login) */}
+        <div className="login-art-side">
+          <div className="login-art">
+            <div className="login-art-overlay" />
           </div>
-          <div className="form-group">
-            <label>Email</label>
-            <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+        </div>
+
+        {/* Right side - Register card */}
+        <div className="login-form-side">
+          <div className="login-form-content">
+            {/* Intro */}
+            <div className="login-intro">
+              <h1 className="login-title">Register Now!</h1>
+              <p className="login-subtitle">Create an account with your details below</p>
+            </div>
+
+            {/* Error message */}
+            {error && <div className="login-error">{error}</div>}
+
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="login-form">
+              <div className="register-name-row">
+                <div className="form-field">
+                  <label htmlFor="first_name" className="form-label">First Name</label>
+                  <input
+                    type="text"
+                    id="first_name"
+                    name="first_name"
+                    className="form-input"
+                    placeholder="John"
+                    value={formData.first_name}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor="last_name" className="form-label">Last Name</label>
+                  <input
+                    type="text"
+                    id="last_name"
+                    name="last_name"
+                    className="form-input"
+                    placeholder="Doe"
+                    value={formData.last_name}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+
+              <div className="form-field">
+                <label htmlFor="username" className="form-label">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  className="form-input"
+                  placeholder="Shanley"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-field">
+                <label htmlFor="email" className="form-label">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="form-input"
+                  placeholder="name@company.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-field">
+                <label htmlFor="password" className="form-label">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="form-input"
+                  placeholder="********"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-field">
+                <label htmlFor="password2" className="form-label">Confirm Password</label>
+                <input
+                  type="password"
+                  id="password2"
+                  name="password2"
+                  className="form-input"
+                  placeholder="********"
+                  value={formData.password2}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <button type="submit" className="btn-signin">Register</button>
+            </form>
+
+            {/* Link to login */}
+            <p className="signup-link">
+              Have an account ? <Link to="/login">Log in here</Link>
+            </p>
+
+            {/* Brand footer */}
+            <div className="login-brand">
+              <span className="login-brand-caption">Powered by</span>
+              <a
+                href="https://www.figma.com/design/OFSfbqftZqJYJQRjxW40Fj/Movie-geek?node-id=36-698"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="login-brand-logo"
+              >
+                Movie<span>Geek</span>
+              </a>
+            </div>
           </div>
-          <div className="form-group">
-            <label>First Name</label>
-            <input type="text" name="first_name" value={formData.first_name} onChange={handleChange} />
-          </div>
-          <div className="form-group">
-            <label>Last Name</label>
-            <input type="text" name="last_name" value={formData.last_name} onChange={handleChange} />
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input type="password" name="password" value={formData.password} onChange={handleChange} required />
-          </div>
-          <div className="form-group">
-            <label>Confirm Password</label>
-            <input type="password" name="password2" value={formData.password2} onChange={handleChange} required />
-          </div>
-          <button type="submit" className="btn btn-primary">Register</button>
-        </form>
-        <p className="auth-link">
-          Already have an account? <Link to="/login">Login here</Link>
-        </p>
+        </div>
       </div>
     </div>
   );

@@ -36,7 +36,7 @@ class MovieViewSet(viewsets.ModelViewSet):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def search_tmdb_movies(request):
-    """Search movies from TMDB API"""
+    """Search movies from TMDB API - English language only (Hollywood), family-friendly"""
     query = request.query_params.get('q', '')
     
     if not query:
@@ -51,13 +51,33 @@ def search_tmdb_movies(request):
         'api_key': api_key,
         'query': query,
         'language': 'en-US',
-        'page': 1
+        'page': 1,
+        'with_original_language': 'en',  # Filter for English-language (Hollywood) movies only
+        'include_adult': 'false'  # Exclude adult content
     }
     
     try:
         response = requests.get(url, params=params)
         response.raise_for_status()
-        return Response(response.json())
+        data = response.json()
+        
+        # Additional filtering for inappropriate content
+        if 'results' in data:
+            filtered_results = []
+            for movie in data['results']:
+                # Skip if adult flag is set
+                if movie.get('adult', False):
+                    continue
+                # Skip movies with explicit keywords in overview (basic filter)
+                overview = movie.get('overview', '').lower()
+                title = movie.get('title', '').lower()
+                inappropriate_keywords = ['erotic', 'sex', 'adult', 'pornographic']
+                if any(keyword in overview or keyword in title for keyword in inappropriate_keywords):
+                    continue
+                filtered_results.append(movie)
+            data['results'] = filtered_results
+        
+        return Response(data)
     except requests.RequestException as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -71,9 +91,11 @@ def get_tmdb_movie_details(request, tmdb_id):
         return Response({'error': 'TMDB API key not configured'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     url = f"{settings.TMDB_BASE_URL}/movie/{tmdb_id}"
+    # Use append_to_response so frontend gets credits (cast) in same payload
     params = {
         'api_key': api_key,
-        'language': 'en-US'
+        'language': 'en-US',
+        'append_to_response': 'credits',
     }
     
     try:
@@ -86,8 +108,72 @@ def get_tmdb_movie_details(request, tmdb_id):
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
+def get_movie_recommendations(request, tmdb_id):
+    """Get recommended movies from TMDB API for a specific movie"""
+    api_key = settings.TMDB_API_KEY
+    if not api_key:
+        return Response({'error': 'TMDB API key not configured'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    url = f"{settings.TMDB_BASE_URL}/movie/{tmdb_id}/recommendations"
+    params = {
+        'api_key': api_key,
+        'language': 'en-US',
+        'page': request.query_params.get('page', 1),
+    }
+
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        data = response.json()
+
+        # Additional filtering for inappropriate content, similar to popular movies
+        if 'results' in data:
+            filtered_results = []
+            for movie in data['results']:
+                # Skip if adult flag is set
+                if movie.get('adult', False):
+                    continue
+                overview = movie.get('overview', '').lower()
+                title = movie.get('title', '').lower()
+                inappropriate_keywords = ['erotic', 'sex', 'adult', 'pornographic']
+                if any(keyword in overview or keyword in title for keyword in inappropriate_keywords):
+                    continue
+                filtered_results.append(movie)
+            data['results'] = filtered_results
+
+        return Response(data)
+    except requests.RequestException as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_movie_reviews(request, tmdb_id):
+    """Get reviews for a movie from TMDB API"""
+    api_key = settings.TMDB_API_KEY
+    if not api_key:
+        return Response({'error': 'TMDB API key not configured'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    url = f"{settings.TMDB_BASE_URL}/movie/{tmdb_id}/reviews"
+    params = {
+        'api_key': api_key,
+        'language': 'en-US',
+        'page': request.query_params.get('page', 1),
+    }
+
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        data = response.json()
+        return Response(data)
+    except requests.RequestException as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def get_popular_movies(request):
-    """Get popular movies from TMDB API"""
+    """Get popular movies from TMDB API - English language only (Hollywood), family-friendly"""
     api_key = settings.TMDB_API_KEY
     if not api_key:
         return Response({'error': 'TMDB API key not configured'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -96,13 +182,33 @@ def get_popular_movies(request):
     params = {
         'api_key': api_key,
         'language': 'en-US',
-        'page': request.query_params.get('page', 1)
+        'page': request.query_params.get('page', 1),
+        'with_original_language': 'en',  # Filter for English-language (Hollywood) movies only
+        'include_adult': 'false'  # Exclude adult content
     }
     
     try:
         response = requests.get(url, params=params)
         response.raise_for_status()
-        return Response(response.json())
+        data = response.json()
+        
+        # Additional filtering for inappropriate content
+        if 'results' in data:
+            filtered_results = []
+            for movie in data['results']:
+                # Skip if adult flag is set or genre includes certain IDs
+                if movie.get('adult', False):
+                    continue
+                # Skip movies with explicit keywords in overview (basic filter)
+                overview = movie.get('overview', '').lower()
+                title = movie.get('title', '').lower()
+                inappropriate_keywords = ['erotic', 'sex', 'adult', 'pornographic']
+                if any(keyword in overview or keyword in title for keyword in inappropriate_keywords):
+                    continue
+                filtered_results.append(movie)
+            data['results'] = filtered_results
+        
+        return Response(data)
     except requests.RequestException as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
