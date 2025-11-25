@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './utils/AuthContext';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Home from './pages/HomeFigma';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -23,15 +24,16 @@ const PrivateRoute = ({ children }) => {
 
 function AppRoutes() {
   const location = useLocation();
-  const hideNavbar =
+  const hideLayout =
     location.pathname === '/login' ||
     location.pathname === '/register' ||
+    location.pathname === '/signup' ||
     location.pathname === '/forgot-password';
 
   return (
     <div className="App">
-      {!hideNavbar && <Navbar />}
-      <div className={hideNavbar ? "" : "container"}>
+      {!hideLayout && <Navbar />}
+      <div className={hideLayout ? "" : "container"}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -45,6 +47,7 @@ function AppRoutes() {
           <Route path="/meetups/create" element={<PrivateRoute><CreateMeetup /></PrivateRoute>} />
         </Routes>
       </div>
+      {!hideLayout && <Footer />}
     </div>
   );
 }
