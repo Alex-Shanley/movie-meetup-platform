@@ -318,6 +318,259 @@ body {
   color: #1a1a2e;
 }
 
+/* Meetups listing - Figma-inspired styling */
+.meetups-page {
+  background: #ffffff;
+  color: #000000;
+  min-height: 100vh;
+}
+
+/* Hero section */
+.meetups-hero {
+  position: relative;
+  min-height: 60vh;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.65) 0%,
+      rgba(0, 0, 0, 0.7) 40%,
+      rgba(0, 0, 0, 0.8) 100%
+    ),
+    url('https://image.tmdb.org/t/p/original/8QDQExnfNFOtabLDKqfDQuHDsIg.jpg');
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.meetups-hero-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.meetups-hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #ffffff;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.meetups-hero-title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.meetups-hero-title span {
+  color: #228EE5;
+}
+
+.meetups-hero-subtitle {
+  font-size: 24px;
+  font-weight: 400;
+  opacity: 0.9;
+  margin-bottom: 24px;
+}
+
+/* White pill container – same as Movies hero search but sized to content */
+.meetups-hero-filters {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 4px 6px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.35);
+}
+
+.meetups-pill {
+  border: none;
+  background: transparent;
+  color: #111827;
+  padding: 0.45rem 1.9rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.meetups-pill.active {
+  background: #228ee5;
+  color: #ffffff;
+}
+
+/* Meetups list section */
+.meetups-section {
+  width: 100%;
+  margin: 0;
+  padding: 60px 120px 80px;
+  background: #ffffff;
+  color: #111827;
+  box-sizing: border-box;
+}
+
+.meetups-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.meetups-section-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+  color: #000000;
+}
+
+.meetups-section-create {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.meetups-section .meetup-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.75rem;
+  align-items: flex-start;
+}
+
+.meetup-card {
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.12);
+  border: 2px solid #228ee5;
+  overflow: hidden;
+}
+
+.meetup-card-poster {
+  width: 100%;
+  height: 190px;
+  overflow: hidden;
+}
+
+.meetup-card-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.meetup-card-body {
+  padding: 0.9rem 1.1rem 1.2rem;
+}
+
+.meetup-card-date {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-bottom: 0.45rem;
+}
+
+.meetup-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 0.45rem;
+}
+
+.meetup-card-organizer {
+  font-size: 0.82rem;
+  color: #6b7280;
+  margin-bottom: 0.6rem;
+}
+
+.meetup-card-attendees-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.meetup-card-avatars {
+  display: inline-flex;
+  align-items: center;
+}
+
+.meetup-avatar {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 2px solid #ffffff;
+  background: #e5e7eb;
+  display: inline-block;
+  margin-right: -6px;
+}
+
+.meetup-avatar.avatar-1 { background: #f97316; }
+.meetup-avatar.avatar-2 { background: #1d4ed8; }
+.meetup-avatar.avatar-3 { background: #16a34a; }
+
+.meetup-card-attendees-text {
+  font-size: 0.82rem;
+  color: #374151;
+}
+
+.meetups-see-more-wrapper {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.meetups-see-more {
+  padding: 0.75rem 3rem;
+  border-radius: 999px;
+  border: none;
+  background: #1a73e8;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Responsive tweaks for Meetups page */
+@media (max-width: 1024px) {
+  .meetups-section {
+    padding: 40px 32px 56px;
+  }
+
+  .meetups-section .meetup-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .meetups-hero {
+    min-height: 70vh;
+  }
+
+  .meetups-hero-title {
+    font-size: 32px;
+  }
+
+  .meetups-hero-subtitle {
+    font-size: 18px;
+  }
+
+  .meetups-section {
+    padding: 32px 16px 48px;
+  }
+
+  .meetups-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .meetups-section .meetup-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .search-form {
   display: flex;
   gap: 1rem;
@@ -372,6 +625,189 @@ body {
 .quick-link-card:hover {
   background: #00adb5;
   color: white;
+}
+
+/* Create Meetup - two-column layout */
+.create-meetup-page {
+  background: #ffffff;
+  color: #0c1421;
+  min-height: 100vh;
+  /* Extra top padding so content clears the sticky navbar pill */
+  padding: 140px 0 80px;
+}
+
+.create-meetup-layout {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+}
+
+.create-meetup-left {
+  flex: 0.9;
+}
+
+.create-meetup-kicker {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #1a73e8;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.create-meetup-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+}
+
+.create-meetup-subtitle {
+  font-size: 1rem;
+  color: #4b5563;
+  line-height: 1.7;
+  margin: 0 0 1.75rem;
+  max-width: 520px;
+}
+
+.create-meetup-highlights {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.create-meetup-highlight h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.create-meetup-highlight p {
+  font-size: 0.95rem;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.create-meetup-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.create-meetup-meta-pill {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: #e0edff;
+  color: #1e40af;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.create-meetup-right {
+  flex: 1.15;
+  max-width: 720px;
+}
+
+.create-meetup-error {
+  margin-bottom: 1rem;
+}
+
+.create-meetup-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 1.75rem 1.9rem 2rem;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+  border: 1px solid #e5e7eb;
+}
+
+.create-meetup-card-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+}
+
+.create-meetup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.create-meetup-section {
+  padding-top: 0.5rem;
+  border-top: 1px solid #edf0f4;
+}
+
+.create-meetup-section:first-of-type {
+  border-top: none;
+}
+
+.create-meetup-section-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.75rem;
+}
+
+.create-meetup-movie-search {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.create-meetup-movie-search input {
+  flex: 1;
+  padding: 0.65rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid #d4d7e3;
+  background: #f7fbff;
+  font-size: 0.95rem;
+}
+
+.create-meetup-movie-search input::placeholder {
+  color: #8897ad;
+}
+
+.create-meetup-search-button {
+  white-space: nowrap;
+  padding-inline: 1.25rem;
+}
+
+.create-meetup-movie-select {
+  width: 100%;
+  margin-top: 0.6rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid #d4d7e3;
+  background: #ffffff;
+  font-size: 0.95rem;
+}
+
+.create-meetup-hint {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  margin-top: 0.4rem;
+}
+
+.create-meetup-section-inline {
+  display: flex;
+  gap: 1rem;
+}
+
+.create-meetup-field-half {
+  flex: 1;
+}
+
+.create-meetup-submit {
+  width: 100%;
+  margin-top: 0.75rem;
+  border-radius: 999px;
 }
 
 /* Meetup Details */
@@ -807,6 +1243,17 @@ body {
 
   .movie-detail-reviews-list {
     grid-template-columns: 1fr;
+  }
+
+  /* Create Meetup: stack columns on tablet/phone */
+  .create-meetup-layout {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 0 1.5rem;
+  }
+
+  .create-meetup-right {
+    max-width: 100%;
   }
 }
 
@@ -1743,6 +2190,11 @@ body {
   .login-container {
     flex-direction: column;
     gap: 2rem;
+  }
+
+  /* Match movies page padding on tablet/phone */
+  .meetups-section {
+    padding: 24px;
   }
 
   .login-art-side {
