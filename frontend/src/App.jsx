@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './utils/AuthContext';
 import Navbar from './components/Navbar';
@@ -24,6 +24,12 @@ const PrivateRoute = ({ children }) => {
 
 function AppRoutes() {
   const location = useLocation();
+
+  // Scroll to top whenever the route changes (e.g., Explore movies button)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   const hideLayout =
     location.pathname === '/login' ||
     location.pathname === '/register' ||

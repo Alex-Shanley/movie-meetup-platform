@@ -77,7 +77,7 @@ const ResetPassword = () => {
 
               <button
                 type="submit"
-                className="btn-signin btn-reset"
+                className="btn btn-primary btn-signin btn-reset"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'Sending...' : 'Send reset link'}

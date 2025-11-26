@@ -36,7 +36,11 @@ export const AuthProvider = ({ children }) => {
     const response = await authAPI.login(credentials);
     localStorage.setItem('access_token', response.data.access);
     localStorage.setItem('refresh_token', response.data.refresh);
-    setUser(response.data.user);
+    
+    // Fetch user profile after login
+    const profileResponse = await authAPI.getProfile();
+    setUser(profileResponse.data);
+    
     return response.data;
   };
 

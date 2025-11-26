@@ -134,7 +134,7 @@ const Movies = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="movies-hero-search-input"
               />
-              <button type="submit" className="movies-hero-search-button">
+              <button type="submit" className="btn btn-primary movies-hero-search-button">
                 Search
               </button>
             </form>
@@ -231,7 +231,7 @@ const Movies = () => {
               <div className="show-more-wrapper">
                 <button
                   type="button"
-                  className="btn-show-more"
+                  className="btn btn-primary btn-show-more"
                   onClick={handleShowMore}
                 >
                   Show more

@@ -101,21 +101,9 @@
 }
 
 .movies-hero-search-button {
-  border: none;
-  outline: none;
-  padding: 0 40px;
+  /* inherits look from .btn .btn-primary; keep only layout tweaks */
   height: 44px;
-  border-radius: 999px;
-  background: #1a73e8;
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
   margin-right: 10px;
-}
-
-.movies-hero-search-button:hover {
-  background: #1558b0;
 }
 
 /* Hero Banner - WHITE BACKGROUND DESIGN */

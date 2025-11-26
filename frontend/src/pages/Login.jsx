@@ -21,7 +21,7 @@ const Login = () => {
     setError('');
     try {
       await login(formData);
-      navigate('/dashboard');
+      navigate('/dashboard', { replace: true });
     } catch (err) {
       setError(err.response?.data?.detail || 'Login failed');
     }
@@ -92,7 +92,7 @@ const Login = () => {
                 <Link to="/forgot-password" className="forgot-password">Forgot password</Link>
               </div>
 
-              <button type="submit" className="btn-signin">Log in</button>
+              <button type="submit" className="btn btn-primary btn-signin">Log in</button>
             </form>
 
             {/* Google Sign In */}

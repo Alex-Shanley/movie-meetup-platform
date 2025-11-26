@@ -137,7 +137,13 @@ const HomeFigma = () => {
   const secondHero = allMovies[1];
   const trending = allMovies.slice(8, 12);
   const thirdHero = allMovies[2];
-  const mostPopular = allMovies.slice(12, 16);
+
+  // Build Most popular without Jujutsu Kaisen (its wide artwork breaks the grid)
+  const mostPopular = allMovies
+    .slice(12, 20)
+    .filter((movie) => !movie.title?.toLowerCase().includes('jujutsu'))
+    .slice(0, 4);
+
   const comingSoon = allMovies.slice(16, 20);
  
   return (
@@ -415,12 +421,12 @@ const HomeFigma = () => {
       )}
 
       {/* Most Popular */}
-      <section className="movie-section-figma">
+      <section className="movie-section-figma most-popular-section">
         <div className="section-header-figma">
           <h2>Most popular</h2>
           <Link to="/movies" className="see-more-figma">See more ›</Link>
         </div>
-        <div className="movie-grid-figma">
+        <div className="movie-grid-figma most-popular-grid">
           {mostPopular.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
         </div>
       </section>

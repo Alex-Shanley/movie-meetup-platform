@@ -209,7 +209,7 @@ const Meetups = () => {
           <div className="filter-tabs">
             <Link
               to="/meetups/create"
-              className="tab-btn active meetups-section-create"
+              className="btn btn-primary meetups-section-create"
             >
               Create meetup
             </Link>
@@ -258,7 +258,7 @@ const Meetups = () => {
             </div>
 
             <div className="meetups-see-more-wrapper">
-              <button type="button" className="meetups-see-more">
+              <button type="button" className="btn btn-primary meetups-see-more">
                 See more
               </button>
             </div>

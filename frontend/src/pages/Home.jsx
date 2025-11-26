@@ -89,7 +89,14 @@ const Home = () => {
       setFeaturedMovies(movies.slice(0, 4));
       setNewArrivals(movies.slice(4, 8));
       setTrending(movies.slice(8, 12));
-      setMostPopular(movies.slice(12, 16));
+
+      // Build Most popular without Jujutsu Kaisen (its wide artwork breaks the grid)
+      const mostPopularClean = movies
+        .slice(12, 20)
+        .filter((movie) => !movie.title?.toLowerCase().includes('jujutsu'))
+        .slice(0, 4);
+      setMostPopular(mostPopularClean);
+
       setComingSoon(movies.slice(16, 20));
       setLoading(false);
     } catch (error) {
