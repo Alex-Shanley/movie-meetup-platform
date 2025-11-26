@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { movieAPI, meetupAPI } from '../services/api';
+import '../styles/CreateMeetup.css';
 
 const CreateMeetup = () => {
   const [formData, setFormData] = useState({
