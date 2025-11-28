@@ -818,12 +818,25 @@ const Dashboard = () => {
               </div>
 
               <div className="modal-footer">
-                <button type="button" onClick={closeModal} className="btn-modal-cancel">
-                  Cancel
-                </button>
-                <button type="submit" className="btn-modal-submit">
-                  {editingMeetup ? 'Save Changes' : 'Create Meetup'}
-                </button>
+                <div className="modal-footer-left">
+                  {editingMeetup && (
+                    <button 
+                      type="button" 
+                      onClick={() => handleDelete(editingMeetup.id)} 
+                      className="btn-modal-delete"
+                    >
+                      Delete Meetup
+                    </button>
+                  )}
+                </div>
+                <div className="modal-footer-right">
+                  <button type="button" onClick={closeModal} className="btn-modal-cancel">
+                    Cancel
+                  </button>
+                  <button type="submit" className="btn-modal-submit">
+                    {editingMeetup ? 'Save Changes' : 'Create Meetup'}
+                  </button>
+                </div>
               </div>
             </form>
           </div>

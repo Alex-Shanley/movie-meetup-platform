@@ -910,10 +910,20 @@
 
 .modal-footer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   gap: 0.75rem;
   padding-top: 1rem;
   border-top: 1px solid #e5e7eb;
+}
+
+.modal-footer-left {
+  flex: 1;
+}
+
+.modal-footer-right {
+  display: flex;
+  gap: 0.75rem;
 }
 
 .btn-modal-cancel {
@@ -946,6 +956,22 @@
 
 .btn-modal-submit:hover {
   background: #1d4ed8;
+}
+
+.btn-modal-delete {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: white;
+  background: #ef4444;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-modal-delete:hover {
+  background: #dc2626;
 }
 
 /* Responsive Modal */
