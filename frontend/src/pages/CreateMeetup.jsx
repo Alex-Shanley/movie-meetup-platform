@@ -43,7 +43,7 @@ const CreateMeetup = () => {
 
     try {
       const response = await meetupAPI.create(formData);
-      navigate(`/meetups/${response.data.id}`);
+      navigate('/meetups');
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to create meetup');
     }
