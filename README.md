@@ -17,20 +17,30 @@ A full-stack web application that allows users to discover movies, rate them, an
 - Add movies to favorites
 
 ### Meetup Features
-- Create movie meetups at specific locations and times
-- Browse upcoming meetups
+- Create movie meetups at specific locations and times using TMDB movie selection
+- Browse upcoming meetups with beautiful poster card layouts
 - Join/leave meetups
 - View participant lists
 - Add comments to meetups
 - Maximum participant limits with full meetup indicators
+- Edit and delete meetups (for organizers)
+- Filter meetups by upcoming/all
+- Visual meetup cards with movie posters, dates, and attendee avatars
 
 ### Additional Features
 - Responsive design for mobile, tablet, and desktop
-- Personalized user dashboard
+- Personalized user dashboard with:
+  - Profile statistics and quick links
+  - Upcoming meetups tab with visual cards
+  - Hosting tab to manage your own meetups
+  - Past meetups history
+  - Edit and delete functionality for hosted meetups
 - Real-time participant tracking
 - CRUD operations for all resources
-- API integration with external movie database
+- API integration with external movie database (TMDB)
 - Automated testing suite
+- Modern UI with hero sections and filtering
+- LinkedIn-inspired dashboard layout
 
 ## Tech Stack
 
@@ -170,12 +180,15 @@ The frontend will be available at `http://localhost:3000`
 ### Meetups
 - `GET /api/meetups/` - List all meetups
 - `GET /api/meetups/{id}/` - Get meetup details
-- `POST /api/meetups/` - Create meetup
+- `POST /api/meetups/` - Create meetup (accepts TMDB movie IDs)
+- `PUT /api/meetups/{id}/` - Update meetup (organizer only)
+- `DELETE /api/meetups/{id}/` - Delete meetup (organizer only)
 - `POST /api/meetups/{id}/join/` - Join meetup
 - `POST /api/meetups/{id}/leave/` - Leave meetup
 - `GET /api/meetups/{id}/participants/` - Get participants
 - `POST /api/meetups/{id}/comment/` - Add comment
 - `GET /api/meetups/{id}/comments/` - Get comments
+- `GET /api/meetups/my-meetups/` - Get meetups organized by current user
 
 ## Running Tests
 
@@ -214,6 +227,33 @@ npm run build
 - `DB_PORT` - Database port
 - `TMDB_API_KEY` - The Movie Database API key
 
+## Recent Updates
+
+### December 2025
+- **Dashboard Improvements**: Complete redesign with LinkedIn-inspired layout
+  - Added "Hosting" tab with poster cards for meetups you organize
+  - Implemented edit and delete functionality for hosted meetups
+  - Enhanced visual design with movie poster thumbnails
+  - Added "Manage" button for quick meetup editing
+  
+- **Meetup Management**: Full CRUD operations
+  - Organizers can now edit meetup details via modal interface
+  - Added delete confirmation for meetup removal
+  - Backend API endpoints for PUT and DELETE operations
+  - Automatic redirect after meetup creation
+  
+- **UI/UX Enhancements**:
+  - Fixed CSS specificity issues between Dashboard and Meetups pages
+  - Restored proper padding on Meetups listing page
+  - Improved responsive design for all screen sizes
+  - Enhanced meetup cards with better visual hierarchy
+  
+- **API Improvements**:
+  - Added `my-meetups/` endpoint to fetch user-organized meetups
+  - Meetup creation now accepts TMDB movie IDs directly
+  - Enhanced meetup response to include full movie poster URLs
+  - Improved error handling and validation
+
 ## Future Enhancements
 - Email notifications for meetup updates
 - Social login (Google, Facebook)
@@ -223,6 +263,8 @@ npm run build
 - Meetup reminders
 - Photo uploads for meetup events
 - Integration with movie ticket booking platforms
+- Calendar view for meetups
+- Meetup categories and tags
 
 ## License
 MIT

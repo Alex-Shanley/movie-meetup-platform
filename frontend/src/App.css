@@ -412,7 +412,7 @@ body {
 }
 
 /* Meetups list section */
-.meetups-section {
+.meetups-page .meetups-section {
   width: 100%;
   margin: 0;
   padding: 60px 120px 80px;
@@ -530,7 +530,7 @@ body {
 
 /* Responsive tweaks for Meetups page */
 @media (max-width: 1024px) {
-  .meetups-section {
+  .meetups-page .meetups-section {
     padding: 40px 32px 56px;
   }
 
@@ -552,7 +552,7 @@ body {
     font-size: 18px;
   }
 
-  .meetups-section {
+  .meetups-page .meetups-section {
     padding: 32px 16px 48px;
   }
 
