@@ -42,6 +42,7 @@ class MeetupSerializer(serializers.ModelSerializer):
 
 class MeetupCreateSerializer(serializers.ModelSerializer):
     movie_name = serializers.CharField(write_only=True, required=False)
+    movie = serializers.IntegerField(write_only=True)  # Accept TMDB ID as integer
     
     class Meta:
         model = Meetup
