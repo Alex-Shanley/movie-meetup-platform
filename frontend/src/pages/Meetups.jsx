@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { meetupAPI } from '../services/api';
 import '../styles/HomeFigma.css';
 
 // Local meetup images (copied into public/meetups)
@@ -157,6 +158,27 @@ const DUMMY_MEETUPS = [
 
 const Meetups = () => {
   const [filter, setFilter] = useState('all');
+  const [meetups, setMeetups] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchMeetups();
+  }, []);
+
+  const fetchMeetups = async () => {
+    try {
+      const response = await meetupAPI.getAll();
+      // Combine real meetups with dummy meetups for demo purposes
+      const realMeetups = response.data.results || response.data || [];
+      setMeetups([...realMeetups, ...DUMMY_MEETUPS]);
+    } catch (error) {
+      console.error('Error fetching meetups:', error);
+      // Fall back to dummy data if API fails
+      setMeetups(DUMMY_MEETUPS);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const formatMeetupDate = (isoString) => {
     if (!isoString) return '';
@@ -216,10 +238,14 @@ const Meetups = () => {
           </div>
         </div>
 
-        {DUMMY_MEETUPS.length > 0 ? (
+        {loading ? (
+          <div style={{ padding: '3rem', textAlign: 'center', color: '#666' }}>
+            Loading meetups...
+          </div>
+        ) : meetups.length > 0 ? (
           <>
             <div className="meetup-grid">
-              {DUMMY_MEETUPS.map((meetup) => {
+              {meetups.map((meetup) => {
                 const posterUrl = meetup.movie?.poster_url || FALLBACK_STILL;
 
                 return (
