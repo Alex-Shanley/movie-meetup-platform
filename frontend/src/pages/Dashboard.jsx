@@ -344,22 +344,27 @@ const Dashboard = () => {
                         </div>
                         <h3 className="empty-state-title">No upcoming meetups</h3>
                         <p className="empty-state-text">Your upcoming meetups will appear here</p>
-                        <button className="btn-browse-meetups">Browse Meetups</button>
+                        <Link to="/meetups" className="btn-browse-meetups">Browse Meetups</Link>
                       </div>
                     ) : (
                       upcomingMeetups.map(meetup => (
-                    <div key={meetup.id} className="meetup-item">
-                      <div className="meetup-icon">🎬</div>
-                      <div className="meetup-content">
-                        <div className="meetup-header-row">
-                          <div>
-                            <h3 className="meetup-title">{meetup.title}</h3>
-                            <p className="meetup-movie">{meetup.movie?.title || 'The Conjuring (2013)'}</p>
-                          </div>
-                          <span className="meetup-badge">Horror</span>
+                    <div key={meetup.id} className="meetup-item-hosting">
+                      {meetup.movie?.poster_url && (
+                        <div className="meetup-poster">
+                          <img src={meetup.movie.poster_url} alt={meetup.movie.title} />
                         </div>
-                        <div className="meetup-details">
-                          <span>
+                      )}
+                      <div className="meetup-content-hosting">
+                        <div className="hosting-badges">
+                          <span className="badge-genre">Upcoming</span>
+                          {meetup.movie?.genre && (
+                            <span className="badge-genre">{meetup.movie.genre.split(',')[0]}</span>
+                          )}
+                        </div>
+                        <h3 className="meetup-title-hosting">{meetup.title}</h3>
+                        <p className="meetup-movie-hosting">{meetup.movie?.title || 'Movie Title'} {meetup.movie?.release_date && `(${meetup.movie.release_date.substring(0, 4)})`}</p>
+                        <div className="meetup-meta">
+                          <span className="meta-item">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
                               <line x1="16" y1="2" x2="16" y2="6"/>
@@ -368,29 +373,26 @@ const Dashboard = () => {
                             </svg>
                             {formatDateTime(meetup.meetup_datetime)}
                           </span>
-                          <span>
+                          <span className="meta-item">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
                               <circle cx="12" cy="10" r="3"/>
                             </svg>
                             {meetup.location}
                           </span>
-                        </div>
-                        <div className="meetup-footer">
-                          <div className="meetup-host">
-                            <div className="host-avatar">S</div>
-                            <span>Hosted by <strong>Sarah M.</strong></span>
-                          </div>
-                          <div className="meetup-attendance">
+                          <span className="meta-item">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
                               <circle cx="9" cy="7" r="4"/>
                             </svg>
-                            {meetup.participants_count || 8}/{meetup.max_participants || 12} attending
-                          </div>
+                            {meetup.participants_count || 0}/{meetup.max_participants || 10} attending
+                          </span>
+                        </div>
+                        <div className="meetup-host">
+                          <div className="host-avatar">{meetup.organizer?.username?.charAt(0).toUpperCase() || 'U'}</div>
+                          <span>Hosted by <strong>{meetup.organizer?.username || 'Unknown'}</strong></span>
                         </div>
                       </div>
-                      <button className="meetup-menu">⋯</button>
                     </div>
                       ))
                     )
