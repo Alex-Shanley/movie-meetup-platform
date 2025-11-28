@@ -81,10 +81,8 @@ const CreateMeetup = () => {
           </div>
         </div>
 
-        <div className="create-meetup-right">
+        <div className="create-meetup-card">
           {error && <div className="error-message create-meetup-error">{error}</div>}
-
-          <div className="create-meetup-card">
             <h2 className="create-meetup-card-title">Meetup details</h2>
             <form onSubmit={handleSubmit} className="create-meetup-form">
               <div className="create-meetup-section">
@@ -127,7 +125,7 @@ const CreateMeetup = () => {
                     <button
                       type="button"
                       onClick={searchMovies}
-                      className="btn btn-secondary create-meetup-search-button"
+                      className="create-meetup-search-button"
                     >
                       Search
                     </button>
@@ -210,11 +208,10 @@ const CreateMeetup = () => {
                 </div>
               </div>
 
-              <button type="submit" className="btn btn-primary create-meetup-submit">
+              <button type="submit" className="create-meetup-submit">
                 Create meetup
               </button>
             </form>
-          </div>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
-from .serializers import RegisterSerializer, UserSerializer, UserProfileUpdateSerializer
+from .serializers import RegisterSerializer, UserSerializer, UserProfileUpdateSerializer, UserUpdateSerializer
 from .models import UserProfile
 
 
@@ -46,7 +46,11 @@ class LogoutView(APIView):
 class UserProfileView(generics.RetrieveUpdateAPIView):
     """View and update user profile"""
     permission_classes = (IsAuthenticated,)
-    serializer_class = UserSerializer
+    
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return UserSerializer
+        return UserUpdateSerializer
 
     def get_object(self):
         return self.request.user

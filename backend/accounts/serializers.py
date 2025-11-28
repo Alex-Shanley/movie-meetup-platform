@@ -49,3 +49,34 @@ class UserProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = ['bio', 'location', 'birth_date', 'profile_picture']
+
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    """Serializer for updating user basic info and profile"""
+    bio = serializers.CharField(source='profile.bio', required=False, allow_blank=True)
+    location = serializers.CharField(source='profile.location', required=False, allow_blank=True, max_length=100)
+    birth_date = serializers.DateField(source='profile.birth_date', required=False, allow_null=True)
+    
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'username', 'bio', 'location', 'birth_date']
+        read_only_fields = ['username']  # Don't allow username changes
+    
+    def update(self, instance, validated_data):
+        # Extract profile data if present
+        profile_data = validated_data.pop('profile', {})
+        
+        # Update User fields
+        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.last_name = validated_data.get('last_name', instance.last_name)
+        instance.email = validated_data.get('email', instance.email)
+        instance.save()
+        
+        # Update UserProfile fields
+        if profile_data:
+            profile = instance.profile
+            for attr, value in profile_data.items():
+                setattr(profile, attr, value)
+            profile.save()
+        
+        return instance

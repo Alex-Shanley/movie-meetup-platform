@@ -31,7 +31,7 @@ class UserRegistrationTest(TestCase):
             'password2': 'differentpass',
         }
         response = self.client.post('/api/accounts/register/', data)
-        self.assertEqual(response.status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 
 class UserProfileTest(TestCase):
@@ -64,3 +64,41 @@ class UserLoginTest(TestCase):
         }
         response = self.client.post('/api/accounts/login/', data)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class UserProfileUpdateTest(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.user = User.objects.create_user(
+            username='testuser',
+            password='testpass123',
+            email='old@example.com',
+            first_name='Old',
+            last_name='Name'
+        )
+        self.client.force_authenticate(user=self.user)
+
+    def test_update_user_profile(self):
+        data = {
+            'first_name': 'Updated',
+            'last_name': 'User',
+            'email': 'updated@example.com',
+            'location': 'Edinburgh, Scotland',
+            'bio': 'I love movies!'
+        }
+        response = self.client.patch('/api/accounts/profile/', data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
+        # Refresh user from database
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.first_name, 'Updated')
+        self.assertEqual(self.user.last_name, 'User')
+        self.assertEqual(self.user.email, 'updated@example.com')
+        self.assertEqual(self.user.profile.location, 'Edinburgh, Scotland')
+        self.assertEqual(self.user.profile.bio, 'I love movies!')
+
+    def test_get_user_profile(self):
+        response = self.client.get('/api/accounts/profile/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['username'], 'testuser')
+        self.assertIn('profile', response.data)

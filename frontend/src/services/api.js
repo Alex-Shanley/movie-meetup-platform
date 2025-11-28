@@ -58,7 +58,7 @@ export const authAPI = {
   login: (data) => api.post('/accounts/login/', data),
   logout: (refreshToken) => api.post('/accounts/logout/', { refresh_token: refreshToken }),
   getProfile: () => api.get('/accounts/profile/'),
-  updateProfile: (data) => api.patch('/accounts/profile/update/', data),
+  updateProfile: (data) => api.patch('/accounts/profile/', data),
 };
 
 // Movie APIs
