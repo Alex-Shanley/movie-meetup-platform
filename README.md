@@ -2,6 +2,10 @@
 
 🎬 **Live Site**: https://movie-meetup-platform.onrender.com/
 
+**Demo Credentials:**
+- Username: `admin`
+- Password: `Moviegeek`
+
 I built this full-stack web application to bring movie enthusiasts together. With this platform, I enable users to discover movies, rate them, and organize meetups to watch films together.
 
 ## Features
