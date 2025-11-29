@@ -168,13 +168,11 @@ const Meetups = () => {
   const fetchMeetups = async () => {
     try {
       const response = await meetupAPI.getAll();
-      // Combine real meetups with dummy meetups for demo purposes
       const realMeetups = response.data.results || response.data || [];
-      setMeetups([...realMeetups, ...DUMMY_MEETUPS]);
+      setMeetups(realMeetups);
     } catch (error) {
       console.error('Error fetching meetups:', error);
-      // Fall back to dummy data if API fails
-      setMeetups(DUMMY_MEETUPS);
+      setMeetups([]);
     } finally {
       setLoading(false);
     }
