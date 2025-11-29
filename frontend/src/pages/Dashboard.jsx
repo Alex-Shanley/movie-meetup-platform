@@ -473,7 +473,7 @@ const Dashboard = () => {
                         </div>
                         <h3 className="empty-state-title">No past meetups</h3>
                         <p className="empty-state-text">Your completed meetups will appear here</p>
-                        <button className="btn-browse-meetups">Browse Meetups</button>
+                        <Link to="/meetups" className="btn-browse-meetups">Browse Meetups</Link>
                       </div>
                     ) : (
                       pastMeetups.map(meetup => (
