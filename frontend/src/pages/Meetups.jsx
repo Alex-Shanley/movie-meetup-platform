@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { meetupAPI } from '../services/api';
 import '../styles/HomeFigma.css';
 
-// Local meetup images (copied into public/meetups)
 const MEETUP_IMG_1 = '/meetups/meetup-movie-image-1.png';
 const MEETUP_IMG_2 = '/meetups/meetup-movie-image-2.png';
 const MEETUP_IMG_3 = '/meetups/meetup-movie-image-3.png';
@@ -18,7 +17,6 @@ const MEETUP_IMG_11 = '/meetups/meetup-movie-image-11.png';
 const MEETUP_IMG_12 = '/meetups/meetup-movie-image-12.png';
 const MEETUP_IMG_13 = '/meetups/meetup-movie-image-13.png';
 
-// Fallback so every card always has an image even if a URL fails
 const FALLBACK_STILL = MEETUP_IMG_13;
 
 const DUMMY_MEETUPS = [
@@ -194,7 +192,6 @@ const Meetups = () => {
 
   return (
     <div className="meetups-page">
-      {/* Hero section */}
       <section className="meetups-hero">
         <div className="meetups-hero-overlay" />
         <div className="meetups-hero-content">
@@ -223,7 +220,6 @@ const Meetups = () => {
         </div>
       </section>
 
-      {/* Meetups grid */}
       <section className="meetups-section">
         <div className="section-header-figma meetups-section-header">
           <h2>Movie meet ups</h2>
@@ -259,7 +255,6 @@ const Meetups = () => {
                         src={posterUrl}
                         alt={meetup.movie?.title || meetup.title}
                         onError={(e) => {
-                          // If an image fails to load, fall back to a known-good still
                           e.target.onerror = null;
                           e.target.src = FALLBACK_STILL;
                         }}
@@ -298,7 +293,6 @@ const Meetups = () => {
         )}
       </section>
 
-      {/* Meetup Detail Modal */}
       {selectedMeetup && (
         <div className="modal-overlay" onClick={() => setSelectedMeetup(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
