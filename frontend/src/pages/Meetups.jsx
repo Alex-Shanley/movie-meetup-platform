@@ -302,56 +302,75 @@ const Meetups = () => {
       {selectedMeetup && (
         <div className="modal-overlay" onClick={() => setSelectedMeetup(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button 
-              className="modal-close" 
-              onClick={() => setSelectedMeetup(null)}
-            >
-              ×
-            </button>
+            <div className="modal-header">
+              <h2 className="modal-title">{selectedMeetup.title}</h2>
+              <button onClick={() => setSelectedMeetup(null)} className="modal-close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
             
-            <div className="modal-body">
-              {selectedMeetup.movie?.poster_url && (
-                <div className="modal-poster">
-                  <img 
-                    src={selectedMeetup.movie.poster_url} 
-                    alt={selectedMeetup.movie.title}
-                  />
+            <div className="modal-form">
+              {selectedMeetup.movie?.title && (
+                <div className="form-group">
+                  <label className="form-label-modal">Movie</label>
+                  <div className="form-input-modal" style={{ background: '#f9fafb', cursor: 'default' }}>
+                    {selectedMeetup.movie.title}
+                  </div>
                 </div>
               )}
               
-              <div className="modal-info">
-                <h2>{selectedMeetup.title}</h2>
-                
-                {selectedMeetup.movie?.title && (
-                  <p className="modal-movie">{selectedMeetup.movie.title}</p>
-                )}
-                
-                <p>
-                  <strong>📅 Date:</strong> {formatMeetupDate(selectedMeetup.meetup_datetime)}
-                </p>
-                
-                <p>
-                  <strong>📍 Location:</strong> {selectedMeetup.location || 'TBD'}
-                </p>
-                
-                <p>
-                  <strong>👤 Organized by:</strong> {selectedMeetup.organizer?.username}
-                </p>
-                
-                <p>
-                  <strong>👥 Attendees:</strong> {selectedMeetup.participants_count} / {selectedMeetup.max_participants || '∞'}
-                </p>
-                
-                {selectedMeetup.description && (
-                  <div className="modal-description">
-                    <strong>About this meetup:</strong>
-                    <p>{selectedMeetup.description}</p>
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="form-label-modal">Date & Time</label>
+                  <div className="form-input-modal" style={{ background: '#f9fafb', cursor: 'default' }}>
+                    {formatMeetupDate(selectedMeetup.meetup_datetime)}
                   </div>
-                )}
+                </div>
                 
-                <button className="btn btn-primary modal-rsvp-btn">
-                  RSVP to this Meetup
-                </button>
+                <div className="form-group">
+                  <label className="form-label-modal">Attendees</label>
+                  <div className="form-input-modal" style={{ background: '#f9fafb', cursor: 'default' }}>
+                    {selectedMeetup.participants_count} / {selectedMeetup.max_participants || '∞'}
+                  </div>
+                </div>
+              </div>
+              
+              <div className="form-group">
+                <label className="form-label-modal">Location</label>
+                <div className="form-input-modal" style={{ background: '#f9fafb', cursor: 'default' }}>
+                  {selectedMeetup.location || 'TBD'}
+                </div>
+              </div>
+              
+              <div className="form-group">
+                <label className="form-label-modal">Organized by</label>
+                <div className="form-input-modal" style={{ background: '#f9fafb', cursor: 'default' }}>
+                  {selectedMeetup.organizer?.username}
+                </div>
+              </div>
+              
+              {selectedMeetup.description && (
+                <div className="form-group">
+                  <label className="form-label-modal">Description/Notes</label>
+                  <div className="form-textarea-modal" style={{ background: '#f9fafb', cursor: 'default', minHeight: '100px', padding: '0.75rem' }}>
+                    {selectedMeetup.description}
+                  </div>
+                </div>
+              )}
+              
+              <div className="modal-footer">
+                <div className="modal-footer-left"></div>
+                <div className="modal-footer-right">
+                  <button type="button" onClick={() => setSelectedMeetup(null)} className="btn-modal-cancel">
+                    Cancel
+                  </button>
+                  <button type="button" className="btn-modal-submit">
+                    RSVP to Meetup
+                  </button>
+                </div>
               </div>
             </div>
           </div>
