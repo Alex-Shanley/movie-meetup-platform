@@ -307,6 +307,16 @@ const Meetups = () => {
             </div>
             
             <div className="modal-form">
+              {selectedMeetup.movie?.poster_url && (
+                <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+                  <img 
+                    src={selectedMeetup.movie.poster_url} 
+                    alt={selectedMeetup.movie.title}
+                    style={{ maxWidth: '200px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
+                  />
+                </div>
+              )}
+              
               {selectedMeetup.movie?.title && (
                 <div className="form-group">
                   <label className="form-label-modal">Movie</label>
