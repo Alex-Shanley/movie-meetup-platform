@@ -160,6 +160,7 @@ const Meetups = () => {
   const [filter, setFilter] = useState('all');
   const [meetups, setMeetups] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedMeetup, setSelectedMeetup] = useState(null);
 
   useEffect(() => {
     fetchMeetups();
@@ -247,7 +248,12 @@ const Meetups = () => {
                 const posterUrl = meetup.movie?.poster_url || FALLBACK_STILL;
 
                 return (
-                  <div key={meetup.id} className="meetup-card">
+                  <div 
+                    key={meetup.id} 
+                    className="meetup-card"
+                    onClick={() => setSelectedMeetup(meetup)}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <div className="meetup-card-poster">
                       <img
                         src={posterUrl}
@@ -291,6 +297,66 @@ const Meetups = () => {
           <p>No meetups found.</p>
         )}
       </section>
+
+      {/* Meetup Detail Modal */}
+      {selectedMeetup && (
+        <div className="modal-overlay" onClick={() => setSelectedMeetup(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button 
+              className="modal-close" 
+              onClick={() => setSelectedMeetup(null)}
+            >
+              ×
+            </button>
+            
+            <div className="modal-body">
+              {selectedMeetup.movie?.poster_url && (
+                <div className="modal-poster">
+                  <img 
+                    src={selectedMeetup.movie.poster_url} 
+                    alt={selectedMeetup.movie.title}
+                  />
+                </div>
+              )}
+              
+              <div className="modal-info">
+                <h2>{selectedMeetup.title}</h2>
+                
+                {selectedMeetup.movie?.title && (
+                  <p className="modal-movie">{selectedMeetup.movie.title}</p>
+                )}
+                
+                <p>
+                  <strong>📅 Date:</strong> {formatMeetupDate(selectedMeetup.meetup_datetime)}
+                </p>
+                
+                <p>
+                  <strong>📍 Location:</strong> {selectedMeetup.location || 'TBD'}
+                </p>
+                
+                <p>
+                  <strong>👤 Organized by:</strong> {selectedMeetup.organizer?.username}
+                </p>
+                
+                <p>
+                  <strong>👥 Attendees:</strong> {selectedMeetup.participants_count} / {selectedMeetup.max_participants || '∞'}
+                </p>
+                
+                {selectedMeetup.description && (
+                  <div className="modal-description">
+                    <strong>About this meetup:</strong>
+                    <p>{selectedMeetup.description}</p>
+                  </div>
+                )}
+                
+                <button className="btn btn-primary modal-rsvp-btn">
+                  RSVP to this Meetup
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
