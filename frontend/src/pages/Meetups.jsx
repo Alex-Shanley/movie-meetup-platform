@@ -295,84 +295,96 @@ const Meetups = () => {
 
       {selectedMeetup && (
         <div className="modal-overlay" onClick={() => setSelectedMeetup(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h2 className="modal-title">{selectedMeetup.title}</h2>
-              <button onClick={() => setSelectedMeetup(null)} className="modal-close">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <line x1="18" y1="6" x2="6" y2="18"/>
-                  <line x1="6" y1="6" x2="18" y2="18"/>
-                </svg>
+          <div className="rsvp-modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="rsvp-modal-header">
+              <h2 className="rsvp-modal-title">Movie Meetup RSVP</h2>
+              <button onClick={() => setSelectedMeetup(null)} className="rsvp-modal-close">
+                ✕
               </button>
             </div>
             
-            <div className="modal-form">
-              {selectedMeetup.movie?.poster_url && (
-                <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-                  <img 
-                    src={selectedMeetup.movie.poster_url} 
-                    alt={selectedMeetup.movie.title}
-                    style={{ maxWidth: '200px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
-                  />
+            <div className="rsvp-modal-body">
+              <div className="rsvp-info-grid">
+                <div className="rsvp-info-card">
+                  <div className="rsvp-info-icon">🎬</div>
+                  <div className="rsvp-info-label">MOVIE</div>
+                  <div className="rsvp-info-value">{selectedMeetup.movie?.title || selectedMeetup.title}</div>
                 </div>
-              )}
-              
-              {selectedMeetup.movie?.title && (
-                <div className="form-group">
-                  <label className="form-label-modal">Movie</label>
-                  <div className="form-input-modal" style={{ background: '#f9fafb', cursor: 'default' }}>
-                    {selectedMeetup.movie.title}
-                  </div>
-                </div>
-              )}
-              
-              <div className="form-row">
-                <div className="form-group">
-                  <label className="form-label-modal">Date & Time</label>
-                  <div className="form-input-modal" style={{ background: '#f9fafb', cursor: 'default' }}>
-                    {formatMeetupDate(selectedMeetup.meetup_datetime)}
+                
+                <div className="rsvp-info-card">
+                  <div className="rsvp-info-icon">👥</div>
+                  <div className="rsvp-info-label">ATTENDEES</div>
+                  <div className="rsvp-info-value-blue">
+                    {selectedMeetup.participants_count}/{selectedMeetup.max_participants || 10} attending
                   </div>
                 </div>
                 
-                <div className="form-group">
-                  <label className="form-label-modal">Attendees</label>
-                  <div className="form-input-modal" style={{ background: '#f9fafb', cursor: 'default' }}>
-                    {selectedMeetup.participants_count} / {selectedMeetup.max_participants || '∞'}
-                  </div>
+                <div className="rsvp-info-card">
+                  <div className="rsvp-info-icon">📅</div>
+                  <div className="rsvp-info-label">DATE & TIME</div>
+                  <div className="rsvp-info-value">{formatMeetupDate(selectedMeetup.meetup_datetime)} GMT</div>
+                </div>
+                
+                <div className="rsvp-info-card">
+                  <div className="rsvp-info-icon">📍</div>
+                  <div className="rsvp-info-label">LOCATION</div>
+                  <div className="rsvp-info-value">{selectedMeetup.location || 'TBD'}</div>
                 </div>
               </div>
               
-              <div className="form-group">
-                <label className="form-label-modal">Location</label>
-                <div className="form-input-modal" style={{ background: '#f9fafb', cursor: 'default' }}>
-                  {selectedMeetup.location || 'TBD'}
+              <div className="rsvp-organizer-card">
+                <div className="rsvp-organizer-avatar">
+                  {selectedMeetup.organizer?.username?.charAt(0).toUpperCase()}
                 </div>
-              </div>
-              
-              <div className="form-group">
-                <label className="form-label-modal">Organized by</label>
-                <div className="form-input-modal" style={{ background: '#f9fafb', cursor: 'default' }}>
-                  {selectedMeetup.organizer?.username}
+                <div>
+                  <div className="rsvp-organizer-label">Organized by</div>
+                  <div className="rsvp-organizer-name">{selectedMeetup.organizer?.username}</div>
                 </div>
               </div>
               
               {selectedMeetup.description && (
-                <div className="form-group">
-                  <label className="form-label-modal">Description/Notes</label>
-                  <div className="form-textarea-modal" style={{ background: '#f9fafb', cursor: 'default', minHeight: '100px', padding: '0.75rem' }}>
-                    {selectedMeetup.description}
-                  </div>
+                <div className="rsvp-description-card">
+                  <div className="rsvp-description-header">📝 Description/Notes</div>
+                  <div className="rsvp-description-text">{selectedMeetup.description}</div>
                 </div>
               )}
               
-              <div className="modal-footer">
-                <div className="modal-footer-left"></div>
-                <div className="modal-footer-right">
-                  <button type="button" onClick={() => setSelectedMeetup(null)} className="btn-modal-cancel">
+              <div className="rsvp-form-section">
+                <div className="rsvp-form-header">🎟️ RSVP for This Event</div>
+                
+                <div className="rsvp-form-group">
+                  <label className="rsvp-form-label">Your Name</label>
+                  <input 
+                    type="text" 
+                    placeholder="Enter your full name" 
+                    className="rsvp-form-input"
+                  />
+                </div>
+                
+                <div className="rsvp-form-group">
+                  <label className="rsvp-form-label">Email Address</label>
+                  <input 
+                    type="email" 
+                    placeholder="your.email@example.com" 
+                    className="rsvp-form-input"
+                  />
+                </div>
+                
+                <div className="rsvp-form-group">
+                  <label className="rsvp-form-label">Will you attend?</label>
+                  <div className="rsvp-attendance-buttons">
+                    <button type="button" className="rsvp-attendance-btn">✓ Yes</button>
+                    <button type="button" className="rsvp-attendance-btn">✗ No</button>
+                    <button type="button" className="rsvp-attendance-btn">? Maybe</button>
+                  </div>
+                </div>
+                
+                <div className="rsvp-form-footer">
+                  <button type="button" onClick={() => setSelectedMeetup(null)} className="rsvp-cancel-btn">
                     Cancel
                   </button>
-                  <button type="button" className="btn-modal-submit">
-                    RSVP to Meetup
+                  <button type="button" className="rsvp-submit-btn">
+                    Submit RSVP
                   </button>
                 </div>
               </div>

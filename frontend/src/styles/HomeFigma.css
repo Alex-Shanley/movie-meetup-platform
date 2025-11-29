@@ -958,4 +958,324 @@
   }
 }
 
+.rsvp-modal-content {
+  background: white;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.rsvp-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.rsvp-modal-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.rsvp-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.rsvp-modal-close:hover {
+  color: #111827;
+}
+
+.rsvp-modal-body {
+  padding: 2rem;
+}
+
+.rsvp-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.rsvp-info-card {
+  background: #f3f4f6;
+  border-radius: 12px;
+  padding: 1.25rem;
+  border: 1px solid #e5e7eb;
+}
+
+.rsvp-info-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.rsvp-info-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.rsvp-info-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.rsvp-info-value-blue {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.rsvp-organizer-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #f3f4f6;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.rsvp-organizer-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #3b82f6;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.rsvp-organizer-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.25rem;
+}
+
+.rsvp-organizer-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.rsvp-description-card {
+  background: #fef3c7;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #f59e0b;
+}
+
+.rsvp-description-header {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f59e0b;
+  margin-bottom: 0.75rem;
+}
+
+.rsvp-description-text {
+  font-size: 0.875rem;
+  color: #78350f;
+  line-height: 1.5;
+}
+
+.rsvp-form-section {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.rsvp-form-header {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1.25rem;
+}
+
+.rsvp-form-group {
+  margin-bottom: 1.25rem;
+}
+
+.rsvp-form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.rsvp-form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #111827;
+  background: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.rsvp-form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.rsvp-form-input::placeholder {
+  color: #9ca3af;
+}
+
+.rsvp-attendance-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.rsvp-attendance-btn {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.rsvp-attendance-btn:hover {
+  border-color: #3b82f6;
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.rsvp-attendance-btn:active,
+.rsvp-attendance-btn.active {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: white;
+}
+
+.rsvp-form-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.rsvp-cancel-btn {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.rsvp-cancel-btn:hover {
+  background: #f3f4f6;
+}
+
+.rsvp-submit-btn {
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.rsvp-submit-btn:hover {
+  background: #1d4ed8;
+}
+
+.rsvp-submit-btn:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 768px) {
+  .rsvp-modal-content {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .rsvp-modal-header {
+    padding: 1rem 1.25rem;
+  }
+
+  .rsvp-modal-title {
+    font-size: 1.25rem;
+  }
+
+  .rsvp-modal-body {
+    padding: 1.25rem;
+  }
+
+  .rsvp-info-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .rsvp-info-card {
+    padding: 1rem;
+  }
+
+  .rsvp-organizer-card {
+    padding: 1rem;
+  }
+
+  .rsvp-description-card {
+    padding: 1rem;
+  }
+
+  .rsvp-form-section {
+    padding: 1.25rem;
+  }
+
+  .rsvp-attendance-buttons {
+    flex-direction: column;
+  }
+
+  .rsvp-form-footer {
+    flex-direction: column;
+  }
+
+  .rsvp-cancel-btn,
+  .rsvp-submit-btn {
+    width: 100%;
+  }
+}
 
