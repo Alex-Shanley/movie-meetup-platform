@@ -201,22 +201,6 @@ const Meetups = () => {
           <p className="meetups-hero-subtitle">
             Find your next favourite film with advanced filters and search
           </p>
-          <div className="meetups-hero-filters">
-            <button
-              type="button"
-              className={`meetups-pill${filter === 'upcoming' ? ' active' : ''}`}
-              onClick={() => setFilter('upcoming')}
-            >
-              Upcoming
-            </button>
-            <button
-              type="button"
-              className={`meetups-pill${filter === 'all' ? ' active' : ''}`}
-              onClick={() => setFilter('all')}
-            >
-              All Meet ups
-            </button>
-          </div>
         </div>
       </section>
 
