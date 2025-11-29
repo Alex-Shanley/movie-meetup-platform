@@ -267,11 +267,6 @@ const Meetups = () => {
                       <h3 className="meetup-card-title">{meetup.title}</h3>
                       <div className="meetup-card-organizer">By {meetup.organizer?.username}</div>
                       <div className="meetup-card-attendees-row">
-                        <div className="meetup-card-avatars">
-                          <span className="meetup-avatar avatar-1" />
-                          <span className="meetup-avatar avatar-2" />
-                          <span className="meetup-avatar avatar-3" />
-                        </div>
                         <span className="meetup-card-attendees-text">
                           {meetup.participants_count} attendees
                         </span>
